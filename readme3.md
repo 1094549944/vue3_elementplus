@@ -227,6 +227,7 @@ module.exports = {
 "lint:style": "stylelint src/**/*.{css,scss,vue} --cache --fix"
 
 ```
-
+结果如下：
+![alt text](1709779227660.png)
 参考文档：
 https://stylelint.nodejs.cn/
