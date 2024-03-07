@@ -1,6 +1,9 @@
 <script lang="ts" setup></script>
 <template>
   <div>
-	<h1>这是test页面</h1>
+	  <svg-icon icon-class="upload" />
+    <svg-icon icon-class="home" />
+    <svg-icon icon-class="drag" />
+    <svg-icon icon-class="search" />
   </div>
 </template>

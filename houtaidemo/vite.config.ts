@@ -6,7 +6,10 @@ import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 // 使用 @ 代替/src
-import{ resolve } from 'path'
+import { resolve } from 'path'
+
+// svg plugin
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -18,6 +21,11 @@ export default defineConfig({
       Components({
         resolvers: [ElementPlusResolver()],
       }),
+      // 修改 svg 相关配置
+      createSvgIconsPlugin({
+        // 指定需要缓存的图标文件夹
+        iconDirs: [resolve(__dirname, './src/assets/svg')],
+      })
   ],
   resolve:{
     alias:[{
