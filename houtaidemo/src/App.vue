@@ -24,3 +24,10 @@
  transition: all 0.3s cubic-bezier(1, 0.6, 0.6, 1);
 }
 </style>
+<script setup>
+import { onMounted } from "vue";
+
+onMounted(() => {
+	document.getElementById('app-cockpit-loading').remove();
+});
+</script>

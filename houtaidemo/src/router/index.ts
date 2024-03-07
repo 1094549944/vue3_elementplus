@@ -11,7 +11,7 @@ export const publicRoutes: Array<RouteRecordRaw> = [
 	...LoginRouter,
 	...TestRouter,
 	{
-		path: '/home',
+		path: '/',
 		name: 'homeIndex',
 		component: () => import('@/views/home/index.vue')
 	}
