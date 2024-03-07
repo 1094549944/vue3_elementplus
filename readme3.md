@@ -231,3 +231,84 @@ module.exports = {
 ![alt text](1709779227660.png)
 参考文档：
 https://stylelint.nodejs.cn/
+
+# husky
+
+## 安装husky
+pnpm install -D husky
+
+## 生成配置文件
+git init 
+npx husky-init
+
+![alt text](1709779898728.png)
+
+在文件夹下会有.husky 里面有个文件 pre-commit 
+在文件里面写有：
+```
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+npm test
+
+```
+
+# 配置commitlint
+
+## 安装commitlint 
+pnpm add @commitlint/config-conventional @commitlint/cli -D
+
+## 配置commitlint 
+新建文件commitlint.config.cjs
+内容如下：
+```
+module.exports = {
+  extends: ['@commitlint/config-conventional'],
+  // 校验规则
+  rules: {
+    'type-enum': [
+      2,
+      'always',
+      [
+        'feat',     //新特性、新功能
+        'fix',      //修改bug
+        'docs',     //文档修改
+        'style',    //代码格式修改, 注意不是 css 修改
+        'refactor', //代码重构
+        'perf',     //优化相关，比如提升性能、体验
+        'test',     //测试用例修改
+        'chore',    //其他修改, 比如改变构建流程、或者增加依赖库、工具等
+        'revert',   //回滚到上一个版本
+        'build',    //编译相关的修改，例如发布版本、对项目构建或者依赖的改动
+      ],
+    ],
+    'type-case': [0],
+    'type-empty': [0],
+    'scope-empty': [0],
+    'scope-case': [0],
+    'subject-full-stop': [0, 'never'],
+    'subject-case': [0, 'never'],
+    'header-max-length': [0, 'always', 72],
+  },
+}
+
+
+```
+## 添加脚本
+在package.json 中添加配置
+```
+ "commitlint": "commitlint --config commitlint.config.cjs -e -V"
+
+```
+## 搭配husky 使用
+npx husky add .husky/commit-msg 
+## 添加命令
+在.husky->commit-msg 中写入
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+pnpm commitlint
+
+
+## 提交示例：
+feat:xxx
+docs:readme3.md 文档修改
