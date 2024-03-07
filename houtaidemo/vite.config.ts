@@ -5,7 +5,8 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
-
+// 使用 @ 代替/src
+import{ resolve } from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -17,5 +18,11 @@ export default defineConfig({
       Components({
         resolvers: [ElementPlusResolver()],
       }),
-],
+  ],
+  resolve:{
+    alias:[{
+      find:'@',
+      replacement:resolve(__dirname,'./src')
+    }]
+  }
 })
