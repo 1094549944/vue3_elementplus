@@ -6,14 +6,14 @@ import App from './App.vue'
 import 'virtual:svg-icons-register'
 import SvgIcon from './components/svgIcon/index.vue'
 
-// 引入我们导出的 router 
+// 引入我们导出的 router
 import { setupRouter } from '@/router/index.ts'
 
 const setupApp = async () => {
-    const app = createApp(App);
-    // 创建路由
-    setupRouter(app);
-    app.component('svg-icon', SvgIcon).mount('#app');
-  };
-  
-  setupApp();
+	const app = createApp(App)
+	// 创建路由
+	setupRouter(app)
+	app.component('svg-icon', SvgIcon).mount('#app')
+}
+
+setupApp()

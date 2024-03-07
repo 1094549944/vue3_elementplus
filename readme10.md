@@ -1,3 +1,89 @@
+# 集成 element-plus 图标
+
+## 安装
+
+pnpm install element-plus @element-plus/icons-vue
+pnpm i unplugin-icons
+
+# 配置
+
+vite.config.ts
+配置如下：
+
+```
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+// 以下三项引入是为配置Element-plus自动按需导入
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+
+// 使用 @ 代替/src
+import { resolve } from 'path'
+
+// svg plugin
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+
+// 引入图标
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+	plugins: [
+		vue(),
+		// 以下两项是为配置Element-plus自动按需导入
+		AutoImport({
+			// 自动导入 Vue 相关函数，如：ref, reactive, toRef 等
+			imports: ['vue'],
+			resolvers: [
+				// 自动导入 Element Plus 相关函数，如：ElMessage, ElMessageBox... (带样式)
+				ElementPlusResolver(),
+				IconsResolver({
+					prefix: 'icon'
+				})
+			]
+		}),
+		Components({
+			resolvers: [
+				// 自动注册图标组件
+				IconsResolver({
+					enabledCollections: ['ep']
+				}),
+				// 自动导入 Element Plus 组件
+				ElementPlusResolver()
+			]
+		}),
+		Icons({
+			autoInstall: true
+		}),
+		// 修改 svg 相关配置
+		createSvgIconsPlugin({
+			// 指定需要缓存的图标文件夹
+			iconDirs: [resolve(__dirname, './src/assets/svg')]
+		})
+	],
+	resolve: {
+		alias: [
+			{
+				find: '@',
+				replacement: resolve(__dirname, './src')
+			}
+		]
+	}
+})
+
+```
+
+## element-plus 图标
+
+参考：
+https://element-plus.org/zh-CN/component/icon.html
+
+## 使用
+
+```
+// src/views/test/index.vue
 <script setup lang="ts">
 const value = ref(true)
 const menu = [
@@ -156,3 +242,15 @@ const menu = [
 		</div>
 	</div>
 </template>
+
+
+```
+
+参考：
+https://juejin.cn/post/7289969035436884007?searchId=2024030716255555B13B7FAEF95598D8B3
+
+引入 icon 的时候,在 icon 上面加 i-ep-即可
+
+## 效果
+
+![alt text](1709801549297.png)
