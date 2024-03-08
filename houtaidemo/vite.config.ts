@@ -69,7 +69,7 @@ export default defineConfig(({ mode }) => {
 			open: true,
 			proxy: {
 				'/api': {
-					target: env.VITE_BASE_URL, // 代理目标地址
+					target: `${env.VITE_BASE_URL}:${env.VITE_APP_PORT}`, // 代理目标地址
 					secure: false, // https
 					changeOrigin: true, // 代理时是否改变 origin
 					rewrite: (path: string) => path.replace(/^\/api/, '')
