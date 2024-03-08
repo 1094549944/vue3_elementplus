@@ -1,25 +1,3 @@
-<script setup lang="ts">
-const value = ref(true)
-const menu = [
-	{
-		name: '增',
-		icon: IconEpPlus
-	},
-	{
-		name: '改',
-		icon: IconEpEditPen
-	},
-	{
-		name: '删',
-		icon: IconEpDelete
-	},
-	{
-		name: '放大',
-		icon: IconEpZoomIn
-	}
-]
-</script>
-
 <template>
 	<div>
 		<svg-icon icon-class="upload" />
@@ -154,5 +132,34 @@ const menu = [
 			<br />
 			<el-switch v-model="value" size="small" active-text="Open" inactive-text="Close" />
 		</div>
+		<hr />
+		<el-button @click="testApi">发送测试</el-button>
 	</div>
 </template>
+<script setup lang="ts">
+import { getTestList } from '@/api/index'
+const value = ref(true)
+const testApi = () => {
+	getTestList({}).then((res) => {
+		console.log(res)
+	})
+}
+const menu = [
+	{
+		name: '增',
+		icon: IconEpPlus
+	},
+	{
+		name: '改',
+		icon: IconEpEditPen
+	},
+	{
+		name: '删',
+		icon: IconEpDelete
+	},
+	{
+		name: '放大',
+		icon: IconEpZoomIn
+	}
+]
+</script>
